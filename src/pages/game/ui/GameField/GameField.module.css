@@ -1,0 +1,29 @@
+.field {
+  position: relative;
+}
+
+.cornerBlock {
+  position: absolute;
+  background-color: #5c5c5c;
+  color: white;
+  border: 1px solid black;
+}
+
+.player {
+  z-index: 5;
+  border: 2px solid black;
+  position: absolute;
+  border-radius: 100%;
+}
+
+.company {
+  position: absolute;
+  color: white;
+  box-sizing: border-box;
+  border: 1px solid black;
+}
+
+.children {
+  position: absolute;
+  overflow: scroll;
+}
