@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { IGame } from "@/types/api/gameTypes";
 import Game from "../Game/Game";
 import { Button, Flex, Typography } from "antd";

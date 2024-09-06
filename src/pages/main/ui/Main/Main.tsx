@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useMonopolySocket } from "../../../../features/socket/socketContext";
 import { useNavigate } from "react-router-dom";
-import styles from "./Main.module.css";
+
 import PageLayout from "../PageLayout/PageLayout";
 import GamesList from "../GamesList/GamesList";
 import { IGame } from "@/types/api/gameTypes";
-import { Flex, Typography } from "antd";
+import { Typography } from "antd";
 
 function App() {
   const [games, setGames] = useState<IGame[]>([]);
