@@ -1,5 +1,6 @@
 .field {
   position: relative;
+  margin: auto auto;
 }
 
 .cornerBlock {
@@ -25,5 +26,5 @@
 
 .children {
   position: absolute;
-  overflow: scroll;
+  overflow: auto;
 }

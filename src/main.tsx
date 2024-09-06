@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
+import App from './pages/main/ui/Main/Main.tsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Game from './pages/game/ui/Game.tsx';
-import { ChatProvider } from './features/socket/socketContext.tsx';
+import { MonopolyProvider } from './features/socket/socketContext.tsx';
 
 const router = createBrowserRouter([
   {
@@ -20,8 +20,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ChatProvider>
+    <MonopolyProvider>
       <RouterProvider router={router} />
-    </ChatProvider>
+    </MonopolyProvider>
   </React.StrictMode>,
 )

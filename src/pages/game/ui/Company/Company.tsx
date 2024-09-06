@@ -112,12 +112,12 @@ export const Company: FC<ICompanyProps> = ({
           {fieldData.name}
         </Typography.Text>
         {fieldData.printedPrice && (
-          <div
+          <Typography.Text
             className={styles.price}
             style={{ backgroundColor: monopolyColors[fieldData.monopolyId] }}
           >
             {price} 000 $
-          </div>
+          </Typography.Text>
         )}
       </div>
       <CompanyModal

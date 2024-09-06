@@ -35,5 +35,7 @@
 }
 
 .price {
+  color: #fff;
+  text-align: center;
   font-weight: bold;
 }

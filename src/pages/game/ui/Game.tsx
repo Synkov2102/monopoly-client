@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useChatSocket } from "../../../features/socket/socketContext";
+import { useMonopolySocket } from "../../../features/socket/socketContext";
 import { GameField } from "./GameField/GameField";
 import { Action } from "./Action/Action";
-import { Flex } from "antd";
+import { Flex, Layout, Typography } from "antd";
 import { Player } from "./Player/Player";
 
 export interface IPlayer {
@@ -47,7 +47,7 @@ function Game() {
   const [gameData, setGameData] = useState<IGameData | undefined>();
   const [fieldsData, setFieldsData] = useState<IFieldsData[] | undefined>();
 
-  const socket = useChatSocket();
+  const socket = useMonopolySocket();
 
   const myMove = gameData?.currentMove === userId;
   const myPosition = gameData?.players.find(
@@ -103,23 +103,20 @@ function Game() {
   };
 
   return (
-    <div>
+    <Layout style={{ minHeight: "100vh" }}>
       <GameField
         players={gameData?.players}
         fieldsChanges={gameData?.fields}
         fieldsData={fieldsData}
       >
         <>
-          {myMove && gameData?.action && typeof myPosition === "number" && (
-            <Action
-              buttonText={gameData?.action}
-              onClick={() => handleAction(myPosition, gameData?.action)}
-              onSkip={() => handleSkip()}
-            />
-          )}
-          <h2>My userId: {userId}</h2>
-          <h2>GameId: {gameId}</h2>
           <Flex vertical style={{ width: "fit-content", margin: "0 auto" }}>
+            <Typography.Title style={{ marginBottom: 0 }} level={3}>
+              My userId: {userId}
+            </Typography.Title>
+            <Typography.Title style={{ marginTop: 0 }} level={3}>
+              GameId: {gameId}
+            </Typography.Title>
             {gameData?.players.map((player, index) => (
               <Player
                 name={`Игрок ${index + 1}`}
@@ -129,9 +126,16 @@ function Game() {
               />
             ))}
           </Flex>
+          {myMove && gameData?.action && typeof myPosition === "number" && (
+            <Action
+              buttonText={gameData?.action}
+              onClick={() => handleAction(myPosition, gameData?.action)}
+              onSkip={() => handleSkip()}
+            />
+          )}
         </>
       </GameField>
-    </div>
+    </Layout>
   );
 }
 

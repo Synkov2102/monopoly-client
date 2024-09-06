@@ -1,47 +1,56 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import io, { Socket } from 'socket.io-client';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from "react";
+import io, { Socket } from "socket.io-client";
 
 // URL вашего Socket.IO сервера
 const SOCKET_SERVER_URL = import.meta.env.VITE_API_URL;
 
 // Определяем типы для контекста
-interface ChatContextType {
-    socket: Socket | null;
+interface MonopolyContextType {
+  socket: Socket | null;
 }
 
 // Создаем контекст с дефолтным значением
-const ChatContext = createContext<ChatContextType | undefined>(undefined);
+const MonopolyContext = createContext<MonopolyContextType | undefined>(
+  undefined
+);
 
-interface ChatProviderProps {
-    children: ReactNode;
+interface MonopolyProviderProps {
+  children: ReactNode;
 }
 
-export const ChatProvider: React.FC<ChatProviderProps> = ({ children }) => {
-    const [socket, setSocket] = useState<Socket | null>(null);
+export const MonopolyProvider: React.FC<MonopolyProviderProps> = ({
+  children,
+}) => {
+  const [socket, setSocket] = useState<Socket | null>(null);
 
-    useEffect(() => {
-        const socketIo = io(SOCKET_SERVER_URL);
-        setSocket(socketIo);
+  useEffect(() => {
+    const socketIo = io(SOCKET_SERVER_URL);
+    setSocket(socketIo);
 
-        return () => {
-            socketIo.disconnect();
-        };
-    }, []);
+    return () => {
+      socketIo.disconnect();
+    };
+  }, []);
 
-    return (
-        <ChatContext.Provider value={{ socket }
-        }>
-            {children}
-        </ChatContext.Provider>
-    );
+  return (
+    <MonopolyContext.Provider value={{ socket }}>
+      {children}
+    </MonopolyContext.Provider>
+  );
 };
 
 // Хук для использования сокета
-export const useChatSocket = (): Socket | null => {
-    const context = useContext(ChatContext);
-    if (!context) {
-        throw new Error('useChatSocket must be used within a ChatProvider');
-    }
+export const useMonopolySocket = (): Socket | null => {
+  const context = useContext(MonopolyContext);
+  if (!context) {
+    throw new Error("useMonopolySocket must be used within a MonopolyProvider");
+  }
 
-    return context.socket;
+  return context.socket;
 };
