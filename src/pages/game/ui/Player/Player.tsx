@@ -1,6 +1,6 @@
-import { FC } from "react";
-import { Avatar, Flex, Typography } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { FC } from 'react';
+import { Avatar, Flex, Typography } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 interface IPlayerProps {
   name: string;

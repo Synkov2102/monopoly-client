@@ -1,7 +1,7 @@
-import React, { ReactNode } from "react";
-import { Flex, Layout, theme, Typography } from "antd";
-import styles from "./PageLayout.module.css";
-import CubeIcon from "../../../../assets/icons/cubic.svg?react";
+import React, { ReactNode } from 'react';
+import { Flex, Layout, theme, Typography } from 'antd';
+import styles from './PageLayout.module.css';
+import CubeIcon from '../../../../assets/icons/cubic.svg?react';
 const { Header, Content, Footer } = Layout;
 
 interface IPageLayoutProps {

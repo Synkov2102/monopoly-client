@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { Button, Flex } from "antd";
+import { FC } from 'react';
+import { Button, Flex } from 'antd';
 
 interface IActionModalProps {
   buttonText: string;
@@ -18,13 +18,13 @@ export const Action: FC<IActionModalProps> = ({
       <Button
         onClick={onClick}
         size="large"
-        style={{ margin: "20px auto" }}
+        style={{ margin: '20px auto' }}
         type="primary"
       >
         {buttonText}
       </Button>
-      {buttonText === "buyField" && (
-        <Button onClick={onSkip} size="large" style={{ margin: "20px auto" }}>
+      {buttonText === 'buyField' && (
+        <Button onClick={onSkip} size="large" style={{ margin: '20px auto' }}>
           Пропустить
         </Button>
       )}

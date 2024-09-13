@@ -1,13 +1,14 @@
-import classNames from "classnames";
-import styles from "./Company.module.css";
-import { FC, useState } from "react";
-import { monopolyColors } from "../../../../constants/colors";
-import { Flex, Modal, Typography } from "antd";
+import classNames from 'classnames';
+import styles from './Company.module.css';
+import { CSSProperties, FC, useState } from 'react';
+import { monopolyColors } from '../../../../constants/colors';
+import { Flex, Modal, Typography } from 'antd';
+import { IFullField, TSampleField } from '@/types/api/gameTypes';
 
 const getLineStyles = (lineName: string, fieldSize: number) => {
   const companyNarrow = fieldSize / 13;
   const companyWide = companyNarrow * 2;
-  if (lineName === "top" || lineName === "bottom") {
+  if (lineName === 'top' || lineName === 'bottom') {
     return {
       width: companyNarrow,
       height: companyWide,
@@ -21,30 +22,30 @@ const getLineStyles = (lineName: string, fieldSize: number) => {
 };
 
 const getTitleLineStyles = (
-  lineName: string
-): { writingMode: "vertical-rl" | "horizontal-tb" } => {
-  if (lineName === "top" || lineName === "bottom") {
-    return { writingMode: "vertical-rl" };
+  lineName: string,
+): { writingMode: 'vertical-rl' | 'horizontal-tb' } => {
+  if (lineName === 'top' || lineName === 'bottom') {
+    return { writingMode: 'vertical-rl' };
   } else {
-    return { writingMode: "horizontal-tb" };
+    return { writingMode: 'horizontal-tb' };
   }
 };
 
 const getCompanyCoordinates = (
   index: number,
   lineName: string,
-  fieldSize: number
+  fieldSize: number,
 ) => {
   const cornerSize = (fieldSize / 13) * 2;
   const fieldGap = index * (fieldSize / 13) + cornerSize;
   switch (lineName) {
-    case "top":
+    case 'top':
       return { top: 0, left: fieldGap };
-    case "right":
+    case 'right':
       return { right: 0, top: fieldGap };
-    case "bottom":
+    case 'bottom':
       return { bottom: 0, right: fieldGap };
-    case "left":
+    case 'left':
       return { left: 0, bottom: fieldGap };
   }
 };
@@ -53,7 +54,7 @@ interface ICompanyProps {
   index: number;
   fieldSize: number;
   line: string;
-  fieldData: Record<string, any>;
+  fieldData: IFullField;
 }
 
 export const Company: FC<ICompanyProps> = ({
@@ -63,6 +64,7 @@ export const Company: FC<ICompanyProps> = ({
   fieldData,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+
   const handleCancel = () => {
     setIsOpen(false);
   };
@@ -70,14 +72,14 @@ export const Company: FC<ICompanyProps> = ({
   const getFieldStyle = (
     index: number,
     lineName: string,
-    fieldSize: number
-  ) => ({
+    fieldSize: number,
+  ): CSSProperties => ({
     ...getLineStyles(lineName, fieldSize),
     ...getCompanyCoordinates(index, lineName, fieldSize),
     ...(fieldData.color && { backgroundColor: fieldData.color }),
     ...(fieldData.monopolied && {
       outline: `5px solid ${monopolyColors[fieldData.monopolyId]}`,
-      outlineOffset: "-6px",
+      outlineOffset: '-6px',
     }),
   });
 
@@ -121,7 +123,7 @@ export const Company: FC<ICompanyProps> = ({
         )}
       </div>
       <CompanyModal
-        isOpen={isOpen && fieldData.name}
+        isOpen={isOpen && !!fieldData.name}
         onClose={handleCancel}
         fieldData={fieldData}
       />
@@ -132,7 +134,7 @@ export const Company: FC<ICompanyProps> = ({
 interface ICompanyModalProps {
   isOpen: boolean;
   onClose: () => void;
-  fieldData: Record<string, any>;
+  fieldData: IFullField;
 }
 
 const CompanyModal: FC<ICompanyModalProps> = ({
@@ -142,57 +144,57 @@ const CompanyModal: FC<ICompanyModalProps> = ({
 }) => {
   const rentItems = [
     {
-      key: "1",
-      label: "В одиночку",
-      children: fieldData.rent + "$",
+      key: '1',
+      label: 'В одиночку',
+      children: fieldData.rent + '$',
     },
     {
-      key: "2",
-      label: "В монополии",
-      children: fieldData.monopolyRent + " $",
+      key: '2',
+      label: 'В монополии',
+      children: fieldData.monopolyRent + ' $',
     },
     {
-      key: "3",
-      label: "1 Дом",
-      children: fieldData?.upgradeRent?.[0] + " $",
+      key: '3',
+      label: '1 Дом',
+      children: fieldData?.upgradeRent?.[0] + ' $',
     },
     {
-      key: "4",
-      label: "2 Дома",
-      children: fieldData?.upgradeRent?.[1] + " $",
+      key: '4',
+      label: '2 Дома',
+      children: fieldData?.upgradeRent?.[1] + ' $',
     },
     {
-      key: "5",
-      label: "3 Дома",
-      children: fieldData?.upgradeRent?.[2] + " $",
+      key: '5',
+      label: '3 Дома',
+      children: fieldData?.upgradeRent?.[2] + ' $',
     },
     {
-      key: "6",
-      label: "4 Дома",
-      children: fieldData?.upgradeRent?.[3] + " $",
+      key: '6',
+      label: '4 Дома',
+      children: fieldData?.upgradeRent?.[3] + ' $',
     },
     {
-      key: "7",
-      label: "Отель",
-      children: fieldData?.upgradeRent?.[4] + " $",
+      key: '7',
+      label: 'Отель',
+      children: fieldData?.upgradeRent?.[4] + ' $',
     },
   ];
 
   const featuresItems = [
     {
-      key: "1",
-      label: "При покупке",
-      children: fieldData.printedPrice + "$",
+      key: '1',
+      label: 'При покупке',
+      children: fieldData.printedPrice + '$',
     },
     {
-      key: "2",
-      label: "При залоге",
-      children: fieldData.mortagePrice + " $",
+      key: '2',
+      label: 'При залоге',
+      children: fieldData.mortagePrice + ' $',
     },
     {
-      key: "3",
-      label: "Улучшение",
-      children: fieldData.buildingCosts + " $",
+      key: '3',
+      label: 'Улучшение',
+      children: fieldData.buildingCosts + ' $',
     },
   ];
 

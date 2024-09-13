@@ -4,8 +4,8 @@ import React, {
   useEffect,
   useState,
   ReactNode,
-} from "react";
-import io, { Socket } from "socket.io-client";
+} from 'react';
+import io, { Socket } from 'socket.io-client';
 
 // URL вашего Socket.IO сервера
 const SOCKET_SERVER_URL = import.meta.env.VITE_API_URL;
@@ -17,7 +17,7 @@ interface MonopolyContextType {
 
 // Создаем контекст с дефолтным значением
 const MonopolyContext = createContext<MonopolyContextType | undefined>(
-  undefined
+  undefined,
 );
 
 interface MonopolyProviderProps {
@@ -49,7 +49,7 @@ export const MonopolyProvider: React.FC<MonopolyProviderProps> = ({
 export const useMonopolySocket = (): Socket | null => {
   const context = useContext(MonopolyContext);
   if (!context) {
-    throw new Error("useMonopolySocket must be used within a MonopolyProvider");
+    throw new Error('useMonopolySocket must be used within a MonopolyProvider');
   }
 
   return context.socket;

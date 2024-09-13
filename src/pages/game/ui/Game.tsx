@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useMonopolySocket } from "../../../features/socket/socketContext";
-import { GameField } from "./GameField/GameField";
-import { Action } from "./Action/Action";
-import { Flex, Layout, Typography } from "antd";
-import { Player } from "./Player/Player";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useMonopolySocket } from '../../../features/socket/socketContext';
+import { GameField } from './GameField/GameField';
+import { Action } from './Action/Action';
+import { Flex, Layout, Typography } from 'antd';
+import { Player } from './Player/Player';
 
 export interface IPlayer {
   _id: string;
@@ -40,10 +40,10 @@ export interface IFieldsData {
   monopolyId: number;
 }
 
-const userId = localStorage.getItem("userId");
+const userId = localStorage.getItem('userId');
 
 function Game() {
-  let { gameId } = useParams();
+  const { gameId } = useParams();
   const [gameData, setGameData] = useState<IGameData | undefined>();
   const [fieldsData, setFieldsData] = useState<IFieldsData[] | undefined>();
 
@@ -51,7 +51,7 @@ function Game() {
 
   const myMove = gameData?.currentMove === userId;
   const myPosition = gameData?.players.find(
-    (player) => player._id === userId
+    (player) => player._id === userId,
   )?.currentPosition;
 
   useEffect(() => {
@@ -61,13 +61,13 @@ function Game() {
     getFieldsData();
     checkRoomConnect();
 
-    socket.on("changeGameData", (data) => {
+    socket.on('changeGameData', (data) => {
       console.log(data);
       setGameData(data);
     });
 
     return () => {
-      socket?.off("changeGameData");
+      socket?.off('changeGameData');
     };
   }, [socket]);
 
@@ -77,24 +77,24 @@ function Game() {
 
   const checkRoomConnect = () => {
     if (!gameId) return;
-    socket?.emit("subscribeGame", { gameId });
+    socket?.emit('subscribeGame', { gameId });
   };
 
   const getGameData = () => {
     if (!gameId) return;
-    socket?.emit("getGameData", { userId, gameId }, handleGameDataUpdate);
+    socket?.emit('getGameData', { userId, gameId }, handleGameDataUpdate);
   };
 
   const getFieldsData = () => {
     if (!gameId) return;
-    socket?.emit("getFieldsData", { gameId }, (fields: IFieldsData[]) => {
+    socket?.emit('getFieldsData', { gameId }, (fields: IFieldsData[]) => {
       setFieldsData(fields);
     });
   };
 
   const handleSkip = () => {
     if (!gameId) return;
-    socket?.emit("skipMove", { userId, gameId });
+    socket?.emit('skipMove', { userId, gameId });
   };
 
   const handleAction = (position: number, action: string) => {
@@ -103,14 +103,14 @@ function Game() {
   };
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout style={{ minHeight: '100vh' }}>
       <GameField
         players={gameData?.players}
         fieldsChanges={gameData?.fields}
         fieldsData={fieldsData}
       >
         <>
-          <Flex vertical style={{ width: "fit-content", margin: "0 auto" }}>
+          <Flex vertical style={{ width: 'fit-content', margin: '0 auto' }}>
             <Typography.Title style={{ marginBottom: 0 }} level={3}>
               My userId: {userId}
             </Typography.Title>
@@ -126,7 +126,7 @@ function Game() {
               />
             ))}
           </Flex>
-          {myMove && gameData?.action && typeof myPosition === "number" && (
+          {myMove && gameData?.action && typeof myPosition === 'number' && (
             <Action
               buttonText={gameData?.action}
               onClick={() => handleAction(myPosition, gameData?.action)}

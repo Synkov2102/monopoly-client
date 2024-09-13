@@ -1,0 +1,7 @@
+.player {
+  z-index: 5;
+  border: 2px solid black;
+  position: absolute;
+  border-radius: 100%;
+  transition: all 0.5s;
+}

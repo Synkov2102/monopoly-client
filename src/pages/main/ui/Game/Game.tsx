@@ -1,14 +1,14 @@
-import { FC } from "react";
-import { IGame, IPlayer } from "@/types/api/gameTypes";
-import { Avatar, Button, Divider, theme, Typography } from "antd";
+import { FC } from 'react';
+import { IGame, IPlayer } from '@/types/api/gameTypes';
+import { Avatar, Button, Divider, theme, Typography } from 'antd';
 import {
   DeleteOutlined,
   PlusOutlined,
   RocketOutlined,
   UserOutlined,
-} from "@ant-design/icons";
-import styles from "./Game.module.css";
-import { useMonopolySocket } from "@/features/socket/socketContext";
+} from '@ant-design/icons';
+import styles from './Game.module.css';
+import { useMonopolySocket } from '@/features/socket/socketContext';
 
 interface IGameProps {
   game: IGame;
@@ -50,18 +50,18 @@ interface IButtonProps {
 const Buttons: FC<IButtonProps> = ({ gameId, creator }) => {
   const socket = useMonopolySocket();
 
-  const isCreator = creator === localStorage.getItem("userId");
+  const isCreator = creator === localStorage.getItem('userId');
 
   const startGame = () => {
-    socket?.emit("startGame", {
-      userId: localStorage.getItem("userId"),
+    socket?.emit('startGame', {
+      userId: localStorage.getItem('userId'),
       gameId,
     });
   };
 
   const deleteGame = () => {
-    socket?.emit("deleteGame", {
-      userId: localStorage.getItem("userId"),
+    socket?.emit('deleteGame', {
+      userId: localStorage.getItem('userId'),
       gameId,
     });
   };
@@ -94,12 +94,12 @@ const Players: FC<IPlayersProps> = ({ players, gameId }) => {
     token: { colorPrimary },
   } = theme.useToken();
 
-  const userId = localStorage.getItem("userId");
+  const userId = localStorage.getItem('userId');
 
   const isCreator = (player: IPlayer) => player._id === userId;
 
   const joinGame = () => {
-    socket?.emit("joinGame", { userId, gameId });
+    socket?.emit('joinGame', { userId, gameId });
   };
 
   return (
@@ -118,7 +118,7 @@ const Players: FC<IPlayersProps> = ({ players, gameId }) => {
         <Button
           className={styles.joinButton}
           shape="circle"
-          key={"join" + index}
+          key={'join' + index}
           onClick={joinGame}
         >
           <PlusOutlined />

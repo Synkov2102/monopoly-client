@@ -1,10 +1,10 @@
-import { FC } from "react";
-import { IGame } from "@/types/api/gameTypes";
-import Game from "../Game/Game";
-import { Button, Flex, Typography } from "antd";
-import { useMonopolySocket } from "@/features/socket/socketContext";
-import styles from "./GamesList.module.css";
-import { PlusOutlined } from "@ant-design/icons";
+import { FC } from 'react';
+import { IGame } from '@/types/api/gameTypes';
+import Game from '../Game/Game';
+import { Button, Flex, Typography } from 'antd';
+import { useMonopolySocket } from '@/features/socket/socketContext';
+import styles from './GamesList.module.css';
+import { PlusOutlined } from '@ant-design/icons';
 
 interface IGamesTableProps {
   games: IGame[];
@@ -14,8 +14,8 @@ const GamesList: FC<IGamesTableProps> = ({ games }) => {
   const socket = useMonopolySocket();
 
   const createGame = () => {
-    socket?.emit("createGame", {
-      userId: localStorage.getItem("userId"),
+    socket?.emit('createGame', {
+      userId: localStorage.getItem('userId'),
     });
   };
 
