@@ -18,6 +18,7 @@ export interface IFieldData {
 }
 
 export interface IFieldRules {
+  type: 'company' | 'chance';
   name: string;
   printedPrice: number;
   mortagePrice: number;
