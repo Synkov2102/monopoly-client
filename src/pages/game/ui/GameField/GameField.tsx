@@ -70,7 +70,7 @@ export const GameField: FC<IGameFieldProps> = ({
 }) => {
   const fieldSize = 1200;
 
-  const fields: IFullField[] = sampleFields.map((field, index) => {
+  const fields: IFullField[] = sampleFields.map((_, index) => {
     const fieldData = fieldsData?.find((field) => field.position === index);
     const fieldChanges = fieldsChanges?.find(
       (field) => field.position === index,
@@ -80,7 +80,7 @@ export const GameField: FC<IGameFieldProps> = ({
       ...fieldChanges,
       color: players?.find((player) => player._id === fieldChanges?.ownerId)
         ?.color,
-    } as IFullField;
+    } as IFullField; // Убрать костыль из типов
   });
 
   const cornerSize = (fieldSize / 13) * 2;
