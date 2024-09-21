@@ -80,7 +80,7 @@ export const GameField: FC<IGameFieldProps> = ({
       ...fieldChanges,
       color: players?.find((player) => player._id === fieldChanges?.ownerId)
         ?.color,
-    };
+    } as IFullField;
   });
 
   const cornerSize = (fieldSize / 13) * 2;
