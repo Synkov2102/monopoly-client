@@ -84,20 +84,6 @@ export const Company: FC<ICompanyProps> = ({
     }),
   });
 
-  let price = fieldData.printedPrice;
-
-  if (fieldData.ownerId) {
-    price = fieldData.rent;
-
-    if (fieldData.monopolied) {
-      price = fieldData.monopolyRent;
-
-      if (fieldData.level) {
-        price = fieldData.upgradeRent[fieldData.level - 1];
-      }
-    }
-  }
-
   return (
     <>
       <div
@@ -117,10 +103,13 @@ export const Company: FC<ICompanyProps> = ({
         </Typography.Text>
         {fieldData.printedPrice && (
           <Typography.Text
-            className={styles.price}
+            className={classNames(
+              styles.price,
+              ...(fieldData.type === 'railroad' ? [styles.railroad] : []),
+            )}
             style={{ backgroundColor: monopolyColors[fieldData.monopolyId] }}
           >
-            {price} $
+            {fieldData.renderedValue}
           </Typography.Text>
         )}
       </div>

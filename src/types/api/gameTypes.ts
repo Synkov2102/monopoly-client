@@ -15,10 +15,11 @@ export interface IFieldData {
   level: number;
   ownerId: string;
   mortage: boolean;
+  renderedValue: string;
 }
 
 export interface IFieldRules {
-  type: 'company' | 'chance';
+  type: 'company' | 'chance' | 'railroad';
   name: string;
   printedPrice: number;
   mortagePrice: number;
